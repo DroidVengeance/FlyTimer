@@ -1,0 +1,63 @@
+#FlyTimer - Give players fly mode for a specified amount of time
+#By: DroidVengeance
+#Version: 1.0
+
+options:
+	prefix: &b[&6Fly&eTimer&b]
+	flyGivePerm: flytimer.give
+
+
+
+variables:
+	{flyTimer.%player%.check} = 0
+
+
+
+
+
+
+
+#COMMAND BEGINS
+command /flytimer <player> <integer>:
+	permission: {@flyGivePerm}
+	trigger:
+		if player-arg is not set:
+			message "{@prefix} &cPlease specify a player..."
+			stop
+		if arg-2 is not set:
+			message "{@prefix} &cPlease specify an amount of time in minutes..."
+			stop
+		if arg-2 <= 0:
+			message "{@prefix} &cPlease specify an amount of time higher than 0..."
+			stop
+		else:
+			set {flyTimer.%player-arg%.start} to arg 2
+			set {flyTimer.%player-arg%.timer} to {flyTimer.%player-arg%.start} * 60
+			if player-arg's fly mode is false:
+				set player-arg's fly mode to true
+				if arg 2 = 1:
+					send "{@prefix} &bFly mode has been given to you for %arg-2% minute."
+				if arg 2 > 1:
+					send "{@prefix} &bFly mode has been given to you for %arg-2% minutes."
+			else:
+				message "{@prefix} &cThat player already has fly mode..."
+				stop
+#COMMAND ENDS				
+				
+				
+#TIMER BEGINS				
+every 1 second:
+	loop all players:
+		if {flyTimer.%loop-player%.check} is less than {flyTimer.%loop-player%.timer}:
+			add 1 to {flyTimer.%loop-player%.check}
+			stop
+		else:
+			if {flyTimer.%loop-player%.check} = {flyTimer.%loop-player%.timer}:
+				set loop-player's fly mode to false
+				send "{@prefix} &bYour fly mode time has run out." to loop-player
+				delete {flyTimer.%loop-player%.start}
+				delete {flyTimer.%loop-player%.check}
+				delete {flyTimer.%loop-player%.timer}
+				stop
+#TIMER ENDS
+		
