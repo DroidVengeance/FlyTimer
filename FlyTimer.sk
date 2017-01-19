@@ -1,10 +1,12 @@
 #FlyTimer - Give players fly mode for a specified amount of time
 #By: DroidVengeance
-#Version: 1.0
+#Version: 1.1
 
 options:
 	prefix: &b[&6Fly&eTimer&b]
 	flyGivePerm: flytimer.give
+	actionbar: false
+	sidebar: true
 
 
 
@@ -15,10 +17,8 @@ variables:
 
 
 
-
-
 #COMMAND BEGINS
-command /flytimer <player> <integer>:
+command flytimer <player> <integer>:
 	permission: {@flyGivePerm}
 	trigger:
 		if player-arg is not set:
@@ -31,14 +31,15 @@ command /flytimer <player> <integer>:
 			message "{@prefix} &cPlease specify an amount of time higher than 0..."
 			stop
 		else:
-			set {flyTimer.%player-arg%.start} to arg 2
-			set {flyTimer.%player-arg%.timer} to {flyTimer.%player-arg%.start} * 60
 			if player-arg's fly mode is false:
+				set {flyTimer.%player-arg%.start} to arg 2
+				set {flyTimer.%player-arg%.timer} to {flyTimer.%player-arg%.start} * 60
+				set {flyTimer.%player-arg%.notify} to {flyTimer.%player-arg%.timer}
 				set player-arg's fly mode to true
 				if arg 2 = 1:
-					send "{@prefix} &bFly mode has been given to you for %arg-2% minute."
+					send "{@prefix} &bFly mode has been given to you for %arg-2% minute." to player-arg
 				if arg 2 > 1:
-					send "{@prefix} &bFly mode has been given to you for %arg-2% minutes."
+					send "{@prefix} &bFly mode has been given to you for %arg-2% minutes." to player-arg
 			else:
 				message "{@prefix} &cThat player already has fly mode..."
 				stop
@@ -49,10 +50,18 @@ command /flytimer <player> <integer>:
 every 1 second:
 	loop all players:
 		if {flyTimer.%loop-player%.check} is less than {flyTimer.%loop-player%.timer}:
+			if {@actionbar} is true:
+				set action bar of loop-player to "&eFlytime Remaining: &b&l%{flyTimer.%loop-player%.notify}% Seconds"
+			if {@sidebar} is true:
+				set name of sidebar of loop-player to "{@prefix}"
+				set score "&aTime:" in sidebar of loop-player to {flyTimer.%loop-player%.notify}
+			subtract 1 from {flyTimer.%loop-player%.notify}
 			add 1 to {flyTimer.%loop-player%.check}
 			stop
 		else:
 			if {flyTimer.%loop-player%.check} = {flyTimer.%loop-player%.timer}:
+				set action bar of loop-player to ""
+				wipe loop-player's sidebar
 				set loop-player's fly mode to false
 				send "{@prefix} &bYour fly mode time has run out." to loop-player
 				delete {flyTimer.%loop-player%.start}
