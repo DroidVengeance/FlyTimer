@@ -16,11 +16,11 @@ flyGivePerm: 'flytimer.give'
 
 #Action Bar - If you want the fly timer to display in the player's
 #action bar, set this to 'true'.
-actionbar: 'false'
+actionbar: false
 
 #Sidebar - If you do not want the fly timer to display on the sidebar,
 #due to some other plugin using it, set this to 'false'.
-sidebar: 'true'
+sidebar: true
 
 #Messages - You can easily change all FlyTimer messages here.
 playerNotSpecified: "&cPlease specify a player..."
@@ -30,6 +30,6 @@ alreadyGiven: "&cThat player already has fly mode..."
 timeHasRunOut: "&bYour fly mode time has run out."
 
 #Version - This is for checking for updates, please to not change this.
-version: "2.0"
+version: '2.0'
 
 #Config End

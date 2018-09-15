@@ -78,7 +78,7 @@ every 1 second:
 			if {ft.actionbar} is true:
 				set action bar of loop-player to "&eFlytime Remaining: &b&l%{flyTimer.%loop-player%.notify}% Seconds"
 			if {ft.sidebar} is true:
-				set name of sidebar of loop-player to "%{ft.prefix}%"
+				set name of sidebar of loop-player to "%colored {ft.prefix}%"
 				set score "&aTime:" in sidebar of loop-player to {flyTimer.%loop-player%.notify}
 			subtract 1 from {flyTimer.%loop-player%.notify}
 			add 1 to {flyTimer.%loop-player%.check}
