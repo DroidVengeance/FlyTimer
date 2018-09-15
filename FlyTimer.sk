@@ -12,22 +12,48 @@
 variables:
 	{flyTimer.%player%.check} = 0
 
-
+#Generate all the files and load variables#
+on script load:
+	send "___________.__         ___________.__" to the console      
+	send "\_   _____/|  | ___.__.\__    ___/|__| _____   ___________" to the console
+	send " |    __)  |  |<   |  |  |    |   |  |/     \_/ __ \_  __ \" to the console
+	send " |     \   |  |_\___  |  |    |   |  |  Y Y  \  ___/|  | \/" to the console
+	send " \___  /   |____/ ____|  |____|   |__|__|_|  /\___  >__|   " to the console
+	send "     \/         \/                         \/     \/       " to the console
+	if folder "plugins/FlyTimer" doesn't exists:
+		create folder "plugins/FlyTimer"
+		send "[FAQs] &fCreating folder..." to the console
+	if file "plugins/FlyTimer/config.yml" doesn't exists:
+		download from "https://bit.ly/2xbJXX8" to "plugins/FlyTimer/config.yml"
+		send "[FAQs] &fGenerating config.yml..." to the console
+	set {_version} to single value "version" get of "/plugins/FlyTimer/config.yml"
+	send "Your Version: %{_version}%" to the console
+	set {_vercheck} to text from "https://bit.ly/2Ndt0pn"
+	send "Current Version: %{_vercheck}%" to the console
+	set {ft.prefix} to single value "prefix" get of "/plugins/FlyTimer/config.yml"
+	set {ft.actionbar} to single value "actionbar" get of "/plugins/FlyTimer/config.yml"
+	set {ft.sidebar} to single value "sidebar" get of "/plugins/FlyTimer/config.yml"
+	set {ft.permission} to single value "flyGivePerm" get of "/plugins/FlyTimer/config.yml"
+	set {ft.playerNotSpecified} to single value "playerNotSpecified" get of "/plugins/FlyTimer/config.yml"
+	set {ft.timeNotSpecified} to single value "timeNotSpecified" get of "/plugins/FlyTimer/config.yml"
+	set {ft.timeTooLow} to single value "timeTooLow" get of "/plugins/FlyTimer/config.yml"
+	set {ft.alreadyGiven} to single value "alreadyGiven" get of "/plugins/FlyTimer/config.yml"
+	set {ft.timeHasRunOut} to single value "timeHasRunOut" get of "/plugins/FlyTimer/config.yml"
 
 
 
 #COMMAND BEGINS
 command flytimer <player> <integer>:
-	permission: {@flyGivePerm}
+	permission: {ft.permission}
 	trigger:
 		if player-arg is not set:
-			message "{@prefix} &cPlease specify a player..."
+			message "%{ft.prefix}% %{ft.playerNotSpecified}%"
 			stop
 		if arg-2 is not set:
-			message "{@prefix} &cPlease specify an amount of time in minutes..."
+			message "%{ft.prefix}% %{ft.timeNotSpecified}%"
 			stop
 		if arg-2 <= 0:
-			message "{@prefix} &cPlease specify an amount of time higher than 0..."
+			message "%{ft.prefix}%%{ft.timeTooLow}%"
 			stop
 		else:
 			if player-arg's fly mode is false:
@@ -36,11 +62,11 @@ command flytimer <player> <integer>:
 				set {flyTimer.%player-arg%.notify} to {flyTimer.%player-arg%.timer}
 				set player-arg's fly mode to true
 				if arg 2 = 1:
-					send "{@prefix} &bFly mode has been given to you for %arg-2% minute." to player-arg
+					send "%{ft.prefix}% &bFly mode has been given to you for %arg-2% minute." to player-arg
 				if arg 2 > 1:
-					send "{@prefix} &bFly mode has been given to you for %arg-2% minutes." to player-arg
+					send "%{ft.prefix}% &bFly mode has been given to you for %arg-2% minutes." to player-arg
 			else:
-				message "{@prefix} &cThat player already has fly mode..."
+				message "%{ft.prefix}% %{ft.alreadyGiven}%"
 				stop
 #COMMAND ENDS				
 				
@@ -49,10 +75,10 @@ command flytimer <player> <integer>:
 every 1 second:
 	loop all players:
 		if {flyTimer.%loop-player%.check} is less than {flyTimer.%loop-player%.timer}:
-			if {@actionbar} is true:
+			if {ft.actionbar} is true:
 				set action bar of loop-player to "&eFlytime Remaining: &b&l%{flyTimer.%loop-player%.notify}% Seconds"
-			if {@sidebar} is true:
-				set name of sidebar of loop-player to "{@prefix}"
+			if {ft.sidebar} is true:
+				set name of sidebar of loop-player to "%{ft.prefix}%"
 				set score "&aTime:" in sidebar of loop-player to {flyTimer.%loop-player%.notify}
 			subtract 1 from {flyTimer.%loop-player%.notify}
 			add 1 to {flyTimer.%loop-player%.check}
@@ -62,7 +88,7 @@ every 1 second:
 				set action bar of loop-player to ""
 				wipe loop-player's sidebar
 				set loop-player's fly mode to false
-				send "{@prefix} &bYour fly mode time has run out." to loop-player
+				send "%{ft.prefix}% %{ft.timeHasRunOut}%" to loop-player
 				delete {flyTimer.%loop-player%.start}
 				delete {flyTimer.%loop-player%.check}
 				delete {flyTimer.%loop-player%.timer}

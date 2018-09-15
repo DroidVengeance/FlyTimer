@@ -4,13 +4,32 @@
 # |     \   |  |_\___  |  |    |   |  |  Y Y  \  ___/|  | \/
 # \___  /   |____/ ____|  |____|   |__|__|_|  /\___  >__|   
 #     \/         \/                         \/     \/       
-
 #FlyTimer - Give players fly mode for a specified amount of time
 #By: DroidVengeance
 
-
+#Prefix - Set your desired prefix below. Color codes are supported.
 prefix: "&b[&6Fly&eTimer&b]"
+
+#Permission - This is the permission required to give a player
+#some fly time.
 flyGivePerm: 'flytimer.give'
+
+#Action Bar - If you want the fly timer to display in the player's
+#action bar, set this to 'true'.
 actionbar: 'false'
+
+#Sidebar - If you do not want the fly timer to display on the sidebar,
+#due to some other plugin using it, set this to 'false'.
 sidebar: 'true'
+
+#Messages - You can easily change all FlyTimer messages here.
+playerNotSpecified: "&cPlease specify a player..."
+timeNotSpecified: "&cPlease specify an amount of time in minutes..."
+timeTooLow: "&cPlease specify an amount of time higher than 0..."
+alreadyGiven: "&cThat player already has fly mode..."
+timeHasRunOut: "&bYour fly mode time has run out."
+
+#Version - This is for checking for updates, please to not change this.
 version: '1.1'
+
+#Config Ends
