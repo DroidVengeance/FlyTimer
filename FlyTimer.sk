@@ -26,8 +26,6 @@ on script load:
 	if file "plugins/FlyTimer/config.yml" doesn't exists:
 		download from "https://bit.ly/2xbJXX8" to "plugins/FlyTimer/config.yml"
 		send "[FAQs] &fGenerating config.yml..." to the console
-	set {_version} to single value "version" get of "/plugins/FlyTimer/config.yml"
-	send "Your Version: %{_version}%" to the console
 	set {_vercheck} to text from "https://bit.ly/2Ndt0pn"
 	send "Current Version: %{_vercheck}%" to the console
 	set {ft.prefix} to single value "prefix" get of "/plugins/FlyTimer/config.yml"
