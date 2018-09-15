@@ -1,0 +1,16 @@
+#___________.__         ___________.__                      
+#\_   _____/|  | ___.__.\__    ___/|__| _____   ___________ 
+# |    __)  |  |<   |  |  |    |   |  |/     \_/ __ \_  __ \
+# |     \   |  |_\___  |  |    |   |  |  Y Y  \  ___/|  | \/
+# \___  /   |____/ ____|  |____|   |__|__|_|  /\___  >__|   
+#     \/         \/                         \/     \/       
+
+#FlyTimer - Give players fly mode for a specified amount of time
+#By: DroidVengeance
+
+
+prefix: "&b[&6Fly&eTimer&b]"
+flyGivePerm: 'flytimer.give'
+actionbar: 'false'
+sidebar: 'true'
+version: '1.1'
