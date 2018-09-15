@@ -43,7 +43,7 @@ on script load:
 
 
 #COMMAND BEGINS
-command flytimer <player> <integer>:
+command flytimer [<player>] [<integer>]:
 	permission: {ft.permission}
 	trigger:
 		if player-arg is not set:
