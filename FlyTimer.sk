@@ -26,17 +26,19 @@ on script load:
 	if file "plugins/FlyTimer/config.yml" doesn't exists:
 		download from "https://bit.ly/2xbJXX8" to "plugins/FlyTimer/config.yml"
 		send "[FAQs] &fGenerating config.yml..." to the console
+	set {ft.version} to skutil yaml value "version" from file "/plugins/FlyTimer/config.yml"
+	send "Your Version: %{ft.version}%" to the console
 	set {_vercheck} to text from "https://bit.ly/2Ndt0pn"
-	send "Current Version: %{_vercheck}%" to the console
-	set {ft.prefix} to single value "prefix" get of "/plugins/FlyTimer/config.yml"
-	set {ft.actionbar} to single value "actionbar" get of "/plugins/FlyTimer/config.yml"
-	set {ft.sidebar} to single value "sidebar" get of "/plugins/FlyTimer/config.yml"
-	set {ft.permission} to single value "flyGivePerm" get of "/plugins/FlyTimer/config.yml"
-	set {ft.playerNotSpecified} to single value "playerNotSpecified" get of "/plugins/FlyTimer/config.yml"
-	set {ft.timeNotSpecified} to single value "timeNotSpecified" get of "/plugins/FlyTimer/config.yml"
-	set {ft.timeTooLow} to single value "timeTooLow" get of "/plugins/FlyTimer/config.yml"
-	set {ft.alreadyGiven} to single value "alreadyGiven" get of "/plugins/FlyTimer/config.yml"
-	set {ft.timeHasRunOut} to single value "timeHasRunOut" get of "/plugins/FlyTimer/config.yml"
+	send "Latest Version: %{_vercheck}%" to the console
+	set {ft.prefix} to skutil yaml value "prefix" from file "/plugins/FlyTimer/config.yml"
+	set {ft.actionbar} to skutil yaml value "actionbar" from file "/plugins/FlyTimer/config.yml"
+	set {ft.sidebar} to skutil yaml value "sidebar" from file "/plugins/FlyTimer/config.yml"
+	set {ft.permission} to skutil yaml value "flyGivePerm" from file "/plugins/FlyTimer/config.yml"
+	set {ft.playerNotSpecified} to skutil yaml value "playerNotSpecified" from file "/plugins/FlyTimer/config.yml"
+	set {ft.timeNotSpecified} to skutil yaml value "timeNotSpecified" from file "/plugins/FlyTimer/config.yml"
+	set {ft.timeTooLow} to skutil yaml value "timeTooLow" from file "/plugins/FlyTimer/config.yml"
+	set {ft.alreadyGiven} to skutil yaml value "alreadyGiven" from file "/plugins/FlyTimer/config.yml"
+	set {ft.timeHasRunOut} to skutil yaml value "timeHasRunOut" from file "/plugins/FlyTimer/config.yml"
 
 
 
@@ -51,7 +53,7 @@ command flytimer <player> <integer>:
 			message "%{ft.prefix}% %{ft.timeNotSpecified}%"
 			stop
 		if arg-2 <= 0:
-			message "%{ft.prefix}%%{ft.timeTooLow}%"
+			message "%{ft.prefix}% %{ft.timeTooLow}%"
 			stop
 		else:
 			if player-arg's fly mode is false:
