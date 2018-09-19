@@ -30,6 +30,6 @@ alreadyGiven: "&cThat player already has fly mode..."
 timeHasRunOut: "&bYour fly mode time has run out."
 
 #Version - This is for checking for updates, please to not change this.
-version: '2.0'
+version: '2.0.0'
 
 #Config End
